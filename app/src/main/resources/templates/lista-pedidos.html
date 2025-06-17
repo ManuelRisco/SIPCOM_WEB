@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pedidos - El Bambino</title>
+    <link rel="icon" type="image/webp" href="/imagenes/logo/Logo.webp" />
+    <link rel="stylesheet" href="/css/admin-panel.css">
+    <link rel="stylesheet" href="/css/admin-panel-custom.css">
+</head>
+<body>
+    <div class="pedidos-container">
+        <h1>Lista de Pedidos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Pedido</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Tipo Documento</th>
+                    <th>Número Documento</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Productos</th>
+                    <th>Cantidades</th>
+                    <th>Precios Unitarios</th>
+                    <th>Estado</th>
+                    <th>Observaciones</th>
+                    <th>Método de Pago</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se generarán las filas de pedidos dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        fetch('/api/pedidos')
+            .then(res => res.json())
+            .then(pedidos => {
+                const tbody = document.querySelector('.pedidos-container table tbody');
+                tbody.innerHTML = '';
+                pedidos.forEach(pedido => {
+                    // Todos los campos son obligatorios
+                    const productos = pedido.detalles.map(d => d.productoNombre).join(', ');
+                    const cantidades = pedido.detalles.map(d => d.cantidad).join(', ');
+                    const precios = pedido.detalles.map(d => d.precioUnitario).join(', ');
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${pedido.idPedido}</td>
+                        <td>${pedido.fechaPedido}</td>
+                        <td>${pedido.clienteNombres} ${pedido.clienteApellidos}</td>
+                        <td>${pedido.clienteTipoDocumento}</td>
+                        <td>${pedido.clienteNumeroDocumento}</td>
+                        <td>${pedido.clienteCorreo}</td>
+                        <td>${pedido.clienteTelefono}</td>
+                        <td>${pedido.clienteDireccion}</td>
+                        <td>${productos}</td>
+                        <td>${cantidades}</td>
+                        <td>${precios}</td>
+                        <td>${pedido.estadoPedido}</td>
+                        <td>${pedido.observaciones}</td>
+                        <td>${pedido.metodoPago}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            });
+    </script>
+</body>
+</html>

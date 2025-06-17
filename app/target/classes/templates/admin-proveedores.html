@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Proveedores - El Bambino</title>
+    <link rel="icon" type="image/webp" href="/imagenes/logo/Logo.webp" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/admin-panel.css">
+    <link rel="stylesheet" href="/css/admin-panel-custom.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Proveedores</h1>
+            <span id="bienvenida-usuario" class="fw-bold"></span>
+            <a href="/admin-panel" class="btn btn-secondary">Volver</a>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCrearProveedor">Registrar Proveedor</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Razón Social</th>
+                        <th>RUC</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Dirección</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se cargarán los proveedores -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Crear Proveedor -->
+    <div class="modal fade" id="modalCrearProveedor" tabindex="-1" aria-labelledby="modalCrearProveedorLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="formCrearProveedor">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalCrearProveedorLabel">Registrar Proveedor</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="razonSocial" class="form-label">Razón Social</label>
+                    <input type="text" class="form-control" id="razonSocial" required maxlength="100">
+                </div>
+                <div class="mb-3">
+                    <label for="ruc" class="form-label">RUC</label>
+                    <input type="text" class="form-control" id="ruc" maxlength="15">
+                </div>
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" maxlength="20">
+                </div>
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="correo" maxlength="100">
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" maxlength="200">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Registrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Editar Proveedor -->
+    <div class="modal fade" id="modalEditarProveedor" tabindex="-1" aria-labelledby="modalEditarProveedorLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="formEditarProveedor">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalEditarProveedorLabel">Editar Proveedor</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editIdProveedor">
+                <div class="mb-3">
+                    <label for="editRazonSocial" class="form-label">Razón Social</label>
+                    <input type="text" class="form-control" id="editRazonSocial" required maxlength="100">
+                </div>
+                <div class="mb-3">
+                    <label for="editRuc" class="form-label">RUC</label>
+                    <input type="text" class="form-control" id="editRuc" maxlength="15">
+                </div>
+                <div class="mb-3">
+                    <label for="editTelefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="editTelefono" maxlength="20">
+                </div>
+                <div class="mb-3">
+                    <label for="editCorreo" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="editCorreo" maxlength="100">
+                </div>
+                <div class="mb-3">
+                    <label for="editDireccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="editDireccion" maxlength="200">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function cargarProveedores() {
+            fetch('/api/proveedores')
+                .then(res => res.json())
+                .then(proveedores => {
+                    const tbody = document.querySelector('table tbody');
+                    tbody.innerHTML = '';
+                    if (!Array.isArray(proveedores) || proveedores.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="7" class="text-center">No hay proveedores registrados.</td></tr>';
+                        return;
+                    }
+                    proveedores.forEach(prov => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${prov.idProveedor}</td>
+                            <td>${prov.razonSocial}</td>
+                            <td>${prov.ruc || ''}</td>
+                            <td>${prov.telefono || ''}</td>
+                            <td>${prov.correo || ''}</td>
+                            <td>${prov.direccion || ''}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="abrirModalEditarProveedor(${prov.idProveedor}, '${prov.razonSocial.replace(/'/g, "\\'")}', '${(prov.ruc || '').replace(/'/g, "\\'")}', '${(prov.telefono || '').replace(/'/g, "\\'")}', '${(prov.correo || '').replace(/'/g, "\\'")}', '${(prov.direccion || '').replace(/'/g, "\\'")}')">Editar</button>
+                                <button class="btn btn-danger btn-sm ms-1" onclick="eliminarProveedor(${prov.idProveedor})">Eliminar</button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                });
+        }
+
+        document.getElementById('formCrearProveedor').onsubmit = function(e) {
+            e.preventDefault();
+            const data = {
+                razonSocial: document.getElementById('razonSocial').value.trim(),
+                ruc: document.getElementById('ruc').value.trim(),
+                telefono: document.getElementById('telefono').value.trim(),
+                correo: document.getElementById('correo').value.trim(),
+                direccion: document.getElementById('direccion').value.trim()
+            };
+            fetch('/api/proveedores', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => {
+                if (res.ok) {
+                    cargarProveedores();
+                    bootstrap.Modal.getInstance(document.getElementById('modalCrearProveedor')).hide();
+                    this.reset();
+                } else {
+                    alert('No se pudo registrar el proveedor');
+                }
+            });
+        };
+
+        function abrirModalEditarProveedor(id, razonSocial, ruc, telefono, correo, direccion) {
+            document.getElementById('editIdProveedor').value = id;
+            document.getElementById('editRazonSocial').value = razonSocial;
+            document.getElementById('editRuc').value = ruc;
+            document.getElementById('editTelefono').value = telefono;
+            document.getElementById('editCorreo').value = correo;
+            document.getElementById('editDireccion').value = direccion;
+            var modal = new bootstrap.Modal(document.getElementById('modalEditarProveedor'));
+            modal.show();
+        }
+
+        document.getElementById('formEditarProveedor').onsubmit = function(e) {
+            e.preventDefault();
+            const id = document.getElementById('editIdProveedor').value;
+            const data = {
+                razonSocial: document.getElementById('editRazonSocial').value.trim(),
+                ruc: document.getElementById('editRuc').value.trim(),
+                telefono: document.getElementById('editTelefono').value.trim(),
+                correo: document.getElementById('editCorreo').value.trim(),
+                direccion: document.getElementById('editDireccion').value.trim()
+            };
+            fetch('/api/proveedores/' + id, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => {
+                if (res.ok) {
+                    cargarProveedores();
+                    bootstrap.Modal.getInstance(document.getElementById('modalEditarProveedor')).hide();
+                } else {
+                    alert('No se pudo editar el proveedor');
+                }
+            });
+        };
+
+        function eliminarProveedor(id) {
+            if (!confirm('¿Seguro que deseas eliminar este proveedor?')) return;
+            fetch('/api/proveedores/' + id, {
+                method: 'DELETE'
+            })
+            .then(res => {
+                if (res.ok) {
+                    cargarProveedores();
+                } else if (res.status === 409) {
+                    alert('No se puede eliminar el proveedor porque está relacionado con otros registros.');
+                } else {
+                    alert('No se pudo eliminar el proveedor');
+                }
+            });
+        }
+
+        fetch('/api/usuario-actual')
+            .then(res => res.ok ? res.json() : null)
+            .then(data => {
+                if (data && data.username) {
+                    document.getElementById('bienvenida-usuario').textContent = "Bienvenido, " + data.username;
+                }
+            });
+
+        cargarProveedores();
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+/* Ajuste de ancho para el minimapa igual al formulario de pago */
+#modal-minimapa > div {
+    width: 30%;
+    min-width: 300px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    z-index: 12001;
+    position: relative;
+}
+
+#modal-minimapa {
+    z-index: 12000 !important;
+}
+
+#mapa-direccion {
+    width: 100% !important;
+    min-width: 200px !important;
+    max-width: 600px !important;
+    box-sizing: border-box;
+    z-index: 12002;
+}
+
+.modal-carrito-content {
+    z-index: 11000 !important;
+}
+

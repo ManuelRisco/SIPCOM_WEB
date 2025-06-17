@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Compra a Proveedor - El Bambino</title>
+    <link rel="icon" type="image/webp" href="/imagenes/logo/Logo.webp" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/admin-panel.css">
+    <link rel="stylesheet" href="/css/admin-panel-custom.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Registrar Compra a Proveedor</h1>
+            <span id="bienvenida-usuario" class="fw-bold"></span>
+            <a href="/admin-panel" class="btn btn-secondary">Volver</a>
+        </div>
+        <form id="formCompra">
+            <div class="mb-3">
+                <label for="proveedorCompra" class="form-label">Proveedor</label>
+                <select class="form-select" id="proveedorCompra" required>
+                    <option value="">Seleccione un proveedor...</option>
+                </select>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-md-8">
+                    <label class="form-label">Productos</label>
+                </div>
+                <div class="col-md-4">
+                    <label for="categoriaCompra" class="form-label">Categoría</label>
+                    <select class="form-select" id="categoriaCompra">
+                        <option value="">Todas las categorías</option>
+                        <!-- Las categorías se cargarán dinámicamente -->
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="observacionesCompra" class="form-label">Observaciones</label>
+                <textarea class="form-control" id="observacionesCompra" maxlength="255"></textarea>
+            </div>
+            <div class="mb-3">
+                <button type="button" class="btn btn-sm btn-success mb-2" onclick="agregarFilaProducto()">Agregar Producto</button>
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle" id="tablaProductosCompra">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filas de productos -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar Compra</button>
+        </form>
+
+        <hr class="my-5">
+
+        <h2 class="mb-3">Historial de Compras Realizadas</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle" id="tablaHistorialCompras">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID Compra</th>
+                        <th>Proveedor</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
+                        <th>Productos</th>
+                        <th>Total a Pagar</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se cargarán las compras -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal para editar estado -->
+    <div class="modal fade" id="modalEditarEstado" tabindex="-1" aria-labelledby="modalEditarEstadoLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalEditarEstadoLabel">Editar Estado de Compra</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="formEditarEstado">
+                <input type="hidden" id="editIdCompra">
+                <div class="mb-3">
+                    <label for="editEstadoCompra" class="form-label">Estado</label>
+                    <select class="form-select" id="editEstadoCompra" required>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="recibida">Recibida</option>
+                        <option value="anulada">Anulada</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let productosCache = [];
+        let proveedoresCache = [];
+        let categoriasCache = [];
+
+        // Cargar categorías
+        fetch('/api/categorias/simple')
+            .then(res => res.json())
+            .then(categorias => {
+                categoriasCache = categorias;
+                const select = document.getElementById('categoriaCompra');
+                categorias.forEach(c => {
+                    select.innerHTML += `<option value="${c.idCategoria}">${c.nombreCategoria}</option>`;
+                });
+            });
+
+        // Cargar proveedores
+        fetch('/api/proveedores-simple')
+            .then(res => res.json())
+            .then(proveedores => {
+                proveedoresCache = proveedores;
+                const select = document.getElementById('proveedorCompra');
+                proveedores.forEach(p => {
+                    select.innerHTML += `<option value="${p.idProveedor}">${p.razonSocial}</option>`;
+                });
+            });
+
+        // Cargar productos (incluye precioCompra y idCategoria)
+        fetch('/api/productos-simple')
+            .then(res => res.json())
+            .then(productos => {
+                productosCache = productos;
+            });
+
+        function agregarFilaProducto() {
+            const tbody = document.querySelector('#tablaProductosCompra tbody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>
+                    <select class="form-select form-select-sm producto-select" required>
+                        <option value="">Seleccione...</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" class="form-control form-control-sm cantidad-input" min="1" value="1" required>
+                </td>
+                <td>
+                    <input type="number" class="form-control form-control-sm precio-unitario-input" min="0" step="0.01" required readonly>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">Eliminar</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+
+            // Llenar productos según la categoría seleccionada
+            const selectProducto = tr.querySelector('.producto-select');
+            function cargarProductosEnSelect() {
+                const idCategoria = document.getElementById('categoriaCompra').value;
+                selectProducto.innerHTML = '<option value="">Seleccione...</option>';
+                productosCache
+                    .filter(p => !idCategoria || p.idCategoria == idCategoria)
+                    .forEach(p => {
+                        selectProducto.innerHTML += `<option value="${p.idProducto}">${p.nombre}</option>`;
+                    });
+            }
+            cargarProductosEnSelect();
+
+            // Si cambia la categoría, actualiza el select de productos de todas las filas
+            document.getElementById('categoriaCompra').addEventListener('change', function() {
+                document.querySelectorAll('.producto-select').forEach(sel => {
+                    const trSel = sel.closest('tr');
+                    const prevValue = sel.value;
+                    sel.innerHTML = '<option value="">Seleccione...</option>';
+                    productosCache
+                        .filter(p => !this.value || p.idCategoria == this.value)
+                        .forEach(p => {
+                            sel.innerHTML += `<option value="${p.idProducto}">${p.nombre}</option>`;
+                        });
+                    // Si el producto seleccionado ya no pertenece a la categoría, límpialo
+                    if (!productosCache.some(p => p.idProducto == prevValue && (!this.value || p.idCategoria == this.value))) {
+                        sel.value = '';
+                        trSel.querySelector('.precio-unitario-input').value = '';
+                    } else {
+                        sel.value = prevValue;
+                        sel.dispatchEvent(new Event('change'));
+                    }
+                });
+            });
+
+            // Autocompletar precio unitario al seleccionar producto
+            selectProducto.addEventListener('change', function() {
+                const idProducto = this.value;
+                const producto = productosCache.find(p => p.idProducto == idProducto);
+                const precioInput = tr.querySelector('.precio-unitario-input');
+                if (producto && precioInput) {
+                    precioInput.value = producto.precioCompra;
+                } else if (precioInput) {
+                    precioInput.value = '';
+                }
+            });
+        }
+
+        document.getElementById('formCompra').onsubmit = function(e) {
+            e.preventDefault();
+            const idProveedor = document.getElementById('proveedorCompra').value;
+            const observaciones = document.getElementById('observacionesCompra').value.trim();
+            const productos = [];
+            document.querySelectorAll('#tablaProductosCompra tbody tr').forEach(tr => {
+                const idProducto = tr.querySelector('.producto-select').value;
+                const cantidad = tr.querySelector('.cantidad-input').value;
+                const precioUnitario = tr.querySelector('.precio-unitario-input').value;
+                if (idProducto && cantidad > 0 && precioUnitario > 0) {
+                    productos.push({
+                        idProducto: parseInt(idProducto),
+                        cantidad: parseInt(cantidad),
+                        precioUnitario: parseFloat(precioUnitario)
+                    });
+                }
+            });
+            if (productos.length === 0) {
+                alert('Debe agregar al menos un producto con cantidad y precio unitario.');
+                return;
+            }
+            fetch('/api/compras', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    idProveedor: parseInt(idProveedor),
+                    observaciones: observaciones,
+                    productos: productos
+                })
+            })
+            .then(res => {
+                if (res.ok) {
+                    alert('Compra registrada con éxito');
+                    window.location.reload();
+                } else {
+                    alert('No se pudo registrar la compra');
+                }
+            });
+        };
+
+        // Cargar historial de compras
+        function cargarHistorialCompras() {
+            fetch('/api/compras-historial')
+                .then(res => res.json())
+                .then(compras => {
+                    const tbody = document.querySelector('#tablaHistorialCompras tbody');
+                    tbody.innerHTML = '';
+                    if (!Array.isArray(compras) || compras.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="9" class="text-center">No hay compras registradas.</td></tr>';
+                        return;
+                    }
+                    compras.forEach(compra => {
+                        const productos = (compra.productos || []).map(p =>
+                            `${p.nombre} (x${p.cantidad})<br>Precio Unitario: S/ ${p.precioUnitario}`
+                        ).join('<hr style="margin:2px 0;">');
+                        // Calcular total a pagar
+                        const total = (compra.productos || []).reduce((sum, p) => sum + (p.cantidad * p.precioUnitario), 0);
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${compra.idCompra}</td>
+                            <td>${compra.proveedorNombre}</td>
+                            <td>${compra.usuarioNombre}</td>
+                            <td>${compra.fechaCompra}</td>
+                            <td>${compra.estadoCompra}</td>
+                            <td>${compra.observaciones || ''}</td>
+                            <td>${productos}</td>
+                            <td><b>S/ ${total.toFixed(2)}</b></td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="abrirModalEditarEstado(${compra.idCompra}, '${compra.estadoCompra}')">Editar</button>
+                                <button class="btn btn-danger btn-sm ms-1" onclick="eliminarCompra(${compra.idCompra})">Eliminar</button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                });
+        }
+
+        function abrirModalEditarEstado(idCompra, estadoActual) {
+            document.getElementById('editIdCompra').value = idCompra;
+            document.getElementById('editEstadoCompra').value = estadoActual;
+            var modal = new bootstrap.Modal(document.getElementById('modalEditarEstado'));
+            modal.show();
+
+            // Habilita el select y botón cada vez que se abre el modal
+            document.getElementById('editEstadoCompra').disabled = false;
+            const form = document.getElementById('formEditarEstado');
+            form.querySelector('button[type="submit"]').disabled = false;
+
+            // Si el estado es 'recibida', deshabilita el select y el botón
+            if (estadoActual === 'recibida') {
+                document.getElementById('editEstadoCompra').disabled = true;
+                form.querySelector('button[type="submit"]').disabled = true;
+            } else {
+                // Solo permite un intento de edición por apertura de modal
+                form.onsubmit = function(e) {
+                    e.preventDefault();
+                    const idCompra = document.getElementById('editIdCompra').value;
+                    const nuevoEstado = document.getElementById('editEstadoCompra').value;
+                    fetch('/api/compras/' + idCompra + '/estado', {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ estado: nuevoEstado })
+                    })
+                    .then(res => {
+                        if (res.ok) {
+                            cargarHistorialCompras();
+                            bootstrap.Modal.getInstance(document.getElementById('modalEditarEstado')).hide();
+                            document.getElementById('editEstadoCompra').disabled = true;
+                            form.querySelector('button[type="submit"]').disabled = true;
+                        } else {
+                            alert('No se pudo actualizar el estado');
+                        }
+                    });
+                };
+            }
+        }
+
+        document.getElementById('formEditarEstado').onsubmit = function(e) {
+            e.preventDefault();
+            const idCompra = document.getElementById('editIdCompra').value;
+            const nuevoEstado = document.getElementById('editEstadoCompra').value;
+            fetch('/api/compras/' + idCompra + '/estado', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ estado: nuevoEstado })
+            })
+            .then(res => {
+                if (res.ok) {
+                    cargarHistorialCompras();
+                    bootstrap.Modal.getInstance(document.getElementById('modalEditarEstado')).hide();
+                } else {
+                    alert('No se pudo actualizar el estado');
+                }
+            });
+        };
+
+        function eliminarCompra(idCompra) {
+            if (!confirm('¿Seguro que deseas eliminar esta compra?')) return;
+            fetch('/api/compras/' + idCompra, {
+                method: 'DELETE'
+            })
+            .then(res => {
+                if (res.ok) {
+                    cargarHistorialCompras();
+                } else if (res.status === 409) {
+                    alert('No se puede eliminar la compra porque está relacionada con otros registros.');
+                } else {
+                    alert('No se pudo eliminar la compra');
+                }
+            });
+        }
+
+        // Inicializar
+        cargarHistorialCompras();
+
+        fetch('/api/usuario-actual')
+            .then(res => res.ok ? res.json() : null)
+            .then(data => {
+                if (data && data.username) {
+                    document.getElementById('bienvenida-usuario').textContent = "Bienvenido, " + data.username;
+                }
+            });
+    </script>
+</body>
+</html>

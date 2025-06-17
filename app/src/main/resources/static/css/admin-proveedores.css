@@ -1,0 +1,318 @@
+.admin-panel-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #0002;
+    padding: 2em;
+}
+.admin-header {
+    text-align: center;
+    margin-bottom: 2em;
+}
+.admin-logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+.fila-botones-superior {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5em;
+}
+#bienvenida-proveedores {
+    margin-right: auto;
+    font-weight: 500;
+    color: #333;
+}
+#cerrar-sesion-proveedores,
+#btn-volver-panel {
+    background: #d2691e;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5em 1.2em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+#cerrar-sesion-proveedores:hover,
+#btn-volver-panel:hover {
+    background: #a0521d;
+}
+#admin-actions-proveedores {
+    margin-bottom: 2em;
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 1.5em 1em;
+    box-shadow: 0 1px 6px #0001;
+}
+#admin-actions-proveedores h2 {
+    margin-bottom: 1em;
+    color: #d2691e;
+    font-size: 1.2em;
+}
+#proveedor-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    align-items: flex-end;
+}
+#proveedor-form input,
+#proveedor-form select {
+    flex: 1 1 220px;
+    padding: 0.7em 1em;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    margin-bottom: 0.5em;
+}
+#proveedor-form button[type="submit"] {
+    background: #04A75B;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7em 1.5em;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 0.5em;
+    transition: background 0.18s;
+}
+#proveedor-form button[type="submit"]:hover {
+    background: #03884a;
+}
+#cancelar-edicion-proveedor {
+    background: #bbb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7em 1.2em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+#cancelar-edicion-proveedor:hover {
+    background: #888;
+}
+#form-msg-proveedor {
+    margin-top: 0.7em;
+    font-size: 1em;
+    color: #d2691e;
+    font-weight: 500;
+}
+#tabla-proveedores {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5em;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px #0001;
+}
+#tabla-proveedores th,
+#tabla-proveedores td {
+    padding: 0.7em 0.5em;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 1em;
+}
+#tabla-proveedores th {
+    background: #f5f5f5;
+    color: #d2691e;
+    font-weight: 600;
+}
+#tabla-proveedores td.actions {
+    min-width: 120px;
+}
+#tabla-proveedores tr:last-child td {
+    border-bottom: none;
+}
+#tabla-proveedores button {
+    background: #d2691e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.4em 1em;
+    margin-right: 0.3em;
+    font-size: 0.98em;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+#tabla-proveedores button:hover {
+    background: #a0521d;
+}
+.hidden {
+    display: none !important;
+}
+/* ...existing code... */
+
+/* Responsive diseño similar a admin-usuarios.css */
+@media (max-width: 900px) {
+    .admin-panel-container {
+        width: 90vw;
+        min-width: 0;
+        padding: 0 2vw;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+    #proveedores-section {
+        padding: 0 2vw;
+    }
+    .admin-header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.7em;
+    }
+    .admin-header {
+        margin-bottom: 1em;
+    }
+    .fila-botones-superior {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        margin-bottom: 1em;
+    }
+    #admin-actions-proveedores {
+        padding: 8px 0;
+        margin-bottom: 1em;
+    }
+    #proveedor-form input,
+    #proveedor-form select,
+    #proveedor-form button {
+        font-size: 1rem;
+        width: 100%;
+        margin-bottom: 8px;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+    #proveedor-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+    #tabla-proveedores {
+        font-size: 0.95rem;
+        width: 100%;
+        min-width: 600px;
+        overflow-x: auto;
+        display: block;
+    }
+    #tabla-proveedores thead,
+    #tabla-proveedores tbody,
+    #tabla-proveedores tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+}
+
+@media (max-width: 650px) {
+    .admin-header h1 {
+        font-size: 1.1rem;
+    }
+    #tabla-proveedores {
+        min-width: 400px;
+        font-size: 0.9rem;
+    }
+    #proveedores-section {
+        padding: 0 1vw;
+    }
+}
+
+@media (max-width: 500px) {
+    .admin-panel-container {
+        padding: 0 1vw;
+    }
+    #proveedores-section {
+        padding: 0 1vw;
+    }
+    #tabla-proveedores {
+        min-width: 320px;
+        font-size: 0.85rem;
+    }
+    .admin-header img.admin-logo {
+        width: 48px;
+        height: 48px;
+    }
+    .fila-botones-superior button,
+    #cerrar-sesion-proveedores,
+    #btn-volver-panel {
+        font-size: 0.95rem;
+        padding: 6px 10px;
+    }
+}
+
+/* Responsive tabla de proveedores */
+@media (max-width: 900px) {
+    #tabla-proveedores {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        min-width: 600px;
+        font-size: 0.95rem;
+    }
+    #tabla-proveedores thead,
+    #tabla-proveedores tbody,
+    #tabla-proveedores tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+}
+
+@media (max-width: 650px) {
+    #tabla-proveedores {
+        min-width: 400px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 500px) {
+    #tabla-proveedores {
+        min-width: 320px;
+        font-size: 0.85rem;
+    }
+    #tabla-proveedores th,
+    #tabla-proveedores td {
+        padding: 0.5em 0.3em;
+        font-size: 0.85em;
+    }
+}
+
+/* Tabla tipo "cards" en móviles muy pequeños */
+@media (max-width: 900px) {
+    #tabla-proveedores,
+    #tabla-proveedores thead,
+    #tabla-proveedores tbody,
+    #tabla-proveedores tr,
+    #tabla-proveedores th,
+    #tabla-proveedores td {
+        display: block;
+        width: 100%;
+    }
+    #tabla-proveedores thead {
+        display: none;
+    }
+    #tabla-proveedores tr {
+        margin-bottom: 1em;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        background: #fafafa;
+        box-shadow: 0 1px 4px #0001;
+        padding: 0.5em 0.7em;
+    }
+    #tabla-proveedores td {
+        border: none;
+        padding: 0.4em 0.2em;
+        position: relative;
+    }
+    #tabla-proveedores td:before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #d2691e;
+        display: block;
+        margin-bottom: 2px;
+        font-size: 0.95em;
+    }
+}

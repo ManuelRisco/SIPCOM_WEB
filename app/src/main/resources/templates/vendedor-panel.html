@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Vendedor - El Bambino</title>
+    <link rel="icon" type="image/webp" href="/imagenes/logo/Logo.webp" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/line-awesome@1.3.0/dist/line-awesome/css/line-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/css/admin-panel.css" />
+    <link rel="stylesheet" href="/css/admin-panel-custom.css" />
+  </head>
+  <body>
+    <div class="admin-panel-container">
+      <div class="admin-header">
+        <a href="/home">
+          <img
+            src="/imagenes/logo/Logo.webp"
+            alt="El Bambino - Pollos a la Brasa"
+            class="admin-logo"
+          />
+        </a>
+        <h1>Panel de Vendedor</h1>
+        <div class="mt-2 mb-2">
+          <span id="bienvenida-usuario" class="fw-bold"></span>
+        </div>
+      </div>
+      <div class="admin-options">
+        <!-- Aquí puedes poner accesos rápidos para el vendedor, por ejemplo: -->
+        <a href="/pedidos-cliente" class="admin-option">
+          <i class="las la-receipt"></i>
+          <span>Pedidos cliente</span>
+        </a>
+        <!-- Agrega más accesos según lo que el vendedor pueda hacer -->
+        <a href="/logout" id="cerrar-sesion" class="admin-option">
+          <i class="las la-sign-out-alt"></i>
+          <span>Cerrar Sesión</span>
+        </a>
+      </div>
+    </div>
+    <div class="foo-copy">
+      <div class="container">
+        <p>
+          El Bambino Polleria © 2025 | Pollos a la Brasa - Todos los derechos
+          reservados
+        </p>
+      </div>
+    </div>
+    <script>
+      // Cerrar sesión (redirige a /logout)
+      document
+        .querySelectorAll("#cerrar-sesion, .cerrar-sesion")
+        .forEach((btn) => {
+          btn.onclick = function (e) {
+            e.preventDefault();
+            window.location.href = "/logout";
+          };
+        });
+
+      // Mostrar usuario logueado
+      fetch("/api/usuario-actual")
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data && data.username) {
+            document.getElementById("bienvenida-usuario").textContent =
+              "Bienvenido, " + data.username;
+          }
+        });
+    </script>
+  </body>
+</html>

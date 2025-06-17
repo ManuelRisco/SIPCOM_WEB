@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Usuarios - El Bambino</title>
+    <link rel="icon" type="image/webp" href="/imagenes/logo/Logo.webp" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/admin-panel.css">
+    <link rel="stylesheet" href="/css/admin-panel-custom.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Usuarios</h1>
+            <span id="bienvenida-usuario" class="fw-bold"></span>
+            <a href="/admin-panel" class="btn btn-secondary">Volver</a>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCrearUsuario">Registrar Usuario</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se cargarán los usuarios -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Crear Usuario -->
+    <div class="modal fade" id="modalCrearUsuario" tabindex="-1" aria-labelledby="modalCrearUsuarioLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="formCrearUsuario">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalCrearUsuarioLabel">Registrar Usuario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="nombreUsuario" class="form-label">Usuario</label>
+                    <input type="text" class="form-control" id="nombreUsuario" required maxlength="50">
+                </div>
+                <div class="mb-3">
+                    <label for="contrasena" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="contrasena" required maxlength="255">
+                </div>
+                <div class="mb-3">
+                    <label for="nombres" class="form-label">Nombres</label>
+                    <input type="text" class="form-control" id="nombres" required maxlength="100">
+                </div>
+                <div class="mb-3">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidos" maxlength="100">
+                </div>
+                <div class="mb-3">
+                    <label for="rol" class="form-label">Rol</label>
+                    <select class="form-select" id="rol" required>
+                        <option value="admin">Admin</option>
+                        <option value="vendedor">Vendedor</option>
+                        <option value="supervisor">Supervisor</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="estado" class="form-label">Estado</label>
+                    <select class="form-select" id="estado">
+                        <option value="1" selected>Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Registrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Editar Usuario -->
+    <div class="modal fade" id="modalEditarUsuario" tabindex="-1" aria-labelledby="modalEditarUsuarioLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="formEditarUsuario">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalEditarUsuarioLabel">Editar Usuario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editIdUsuario">
+                <div class="mb-3">
+                    <label for="editNombreUsuario" class="form-label">Usuario</label>
+                    <input type="text" class="form-control" id="editNombreUsuario" required maxlength="50">
+                </div>
+                <div class="mb-3">
+                    <label for="editContrasena" class="form-label">Contraseña (dejar vacío para no cambiar)</label>
+                    <input type="password" class="form-control" id="editContrasena" maxlength="255">
+                </div>
+                <div class="mb-3">
+                    <label for="editNombres" class="form-label">Nombres</label>
+                    <input type="text" class="form-control" id="editNombres" required maxlength="100">
+                </div>
+                <div class="mb-3">
+                    <label for="editApellidos" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="editApellidos" maxlength="100">
+                </div>
+                <div class="mb-3">
+                    <label for="editRol" class="form-label">Rol</label>
+                    <select class="form-select" id="editRol" required>
+                        <option value="admin">Admin</option>
+                        <option value="vendedor">Vendedor</option>
+                        <option value="supervisor">Supervisor</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="editEstado" class="form-label">Estado</label>
+                    <select class="form-select" id="editEstado">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let usuarioActual = null;
+
+        fetch('/api/usuario-actual')
+            .then(res => res.ok ? res.json() : null)
+            .then(data => {
+                if (data && data.username) {
+                    usuarioActual = data.username;
+                    document.getElementById('bienvenida-usuario').textContent = "Bienvenido, " + data.username;
+                }
+                cargarUsuarios();
+            });
+
+        function cargarUsuarios() {
+            fetch('/api/usuarios')
+                .then(res => res.json())
+                .then(usuarios => {
+                    const tbody = document.querySelector('table tbody');
+                    tbody.innerHTML = '';
+                    if (!Array.isArray(usuarios) || usuarios.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="7" class="text-center">No hay usuarios registrados.</td></tr>';
+                        return;
+                    }
+                    usuarios.forEach(u => {
+                        const esActual = usuarioActual && usuarioActual === u.nombreUsuario;
+                        const btnEliminar = esActual
+                            ? `<button class="btn btn-danger btn-sm ms-1" disabled title="No puedes eliminar tu propio usuario">Eliminar</button>`
+                            : `<button class="btn btn-danger btn-sm ms-1" onclick="eliminarUsuario(${u.idUsuario})">Eliminar</button>`;
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${u.idUsuario}</td>
+                            <td>${u.nombreUsuario}</td>
+                            <td>${u.nombres}</td>
+                            <td>${u.apellidos || ''}</td>
+                            <td>${u.rol}</td>
+                            <td>${u.estado == 1 ? 'Activo' : 'Inactivo'}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="abrirModalEditarUsuario(${u.idUsuario}, '${u.nombreUsuario.replace(/'/g, "\\'")}', '${u.nombres.replace(/'/g, "\\'")}', '${(u.apellidos || '').replace(/'/g, "\\'")}', '${u.rol}', ${u.estado})">Editar</button>
+                                ${btnEliminar}
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                });
+        }
+
+        document.getElementById('formCrearUsuario').onsubmit = function(e) {
+            e.preventDefault();
+            const data = {
+                nombreUsuario: document.getElementById('nombreUsuario').value.trim(),
+                contrasena: document.getElementById('contrasena').value.trim(),
+                nombres: document.getElementById('nombres').value.trim(),
+                apellidos: document.getElementById('apellidos').value.trim(),
+                rol: document.getElementById('rol').value,
+                estado: document.getElementById('estado').value
+            };
+            fetch('/api/usuarios', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => {
+                if (res.ok) {
+                    cargarUsuarios();
+                    bootstrap.Modal.getInstance(document.getElementById('modalCrearUsuario')).hide();
+                    this.reset();
+                } else {
+                    alert('No se pudo registrar el usuario');
+                }
+            });
+        };
+
+        function abrirModalEditarUsuario(id, nombreUsuario, nombres, apellidos, rol, estado) {
+            document.getElementById('editIdUsuario').value = id;
+            document.getElementById('editNombreUsuario').value = nombreUsuario;
+            document.getElementById('editContrasena').value = '';
+            document.getElementById('editNombres').value = nombres;
+            document.getElementById('editApellidos').value = apellidos;
+            document.getElementById('editRol').value = rol;
+            document.getElementById('editEstado').value = estado;
+            var modal = new bootstrap.Modal(document.getElementById('modalEditarUsuario'));
+            modal.show();
+        }
+
+        document.getElementById('formEditarUsuario').onsubmit = function(e) {
+            e.preventDefault();
+            const id = document.getElementById('editIdUsuario').value;
+            const data = {
+                nombreUsuario: document.getElementById('editNombreUsuario').value.trim(),
+                contrasena: document.getElementById('editContrasena').value.trim(),
+                nombres: document.getElementById('editNombres').value.trim(),
+                apellidos: document.getElementById('editApellidos').value.trim(),
+                rol: document.getElementById('editRol').value,
+                estado: document.getElementById('editEstado').value
+            };
+            fetch('/api/usuarios/' + id, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => {
+                if (res.ok) {
+                    cargarUsuarios();
+                    bootstrap.Modal.getInstance(document.getElementById('modalEditarUsuario')).hide();
+                } else {
+                    alert('No se pudo editar el usuario');
+                }
+            });
+        };
+
+        function eliminarUsuario(id) {
+            if (!confirm('¿Seguro que deseas eliminar este usuario?')) return;
+            fetch('/api/usuarios/' + id, {
+                method: 'DELETE'
+            })
+            .then(res => {
+                if (res.ok) {
+                    cargarUsuarios();
+                } else if (res.status === 409) {
+                    alert('No se puede eliminar el usuario porque está relacionado con otros registros.');
+                } else {
+                    alert('No se pudo eliminar el usuario');
+                }
+            });
+        }
+
+        cargarUsuarios();
+    </script>
+</body>
+</html>

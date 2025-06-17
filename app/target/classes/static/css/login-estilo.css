@@ -1,0 +1,110 @@
+/* login-estilo.css - Estilos exclusivos para el login de El Bambino Pollería */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+    background: linear-gradient(135deg, #fffde4 0%, #fff9c4 100%);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 480px;
+    min-width: 220px;
+    margin: 0 auto;
+    padding: 32px 32px 32px 32px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 40px rgba(26,35,126,0.13);
+    border: 2px solid #1a237e22;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    top: 120px;
+    margin-bottom: 120px; /* Espacio para el footer fijo */
+    min-height: 320px;
+}
+
+.login-container h2 {
+    color: #1a237e;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 7px;
+    color: #222;
+    font-weight: 500;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 7px;
+    border: 1.5px solid #7c7e1a33;
+    margin-bottom: 18px;
+    font-size: 1rem;
+}
+
+.login-container button {
+    width: 100%;
+    background: linear-gradient(90deg,hwb(56 33% 34%) 60%,#97924e 100%);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow:0 2px 8px #1a237e22;
+}
+
+
+.login-container .error {
+    color: #d32f2f;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.login-container .success {
+    color: #388e3c;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.login-container .logo-login {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.login-container .logo-login img {
+    width: 80px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #1a237e22;
+    margin-bottom: 8px;
+}
+
+/* FOOTER */
+.foo-copy {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    font-family: 'Poppins', sans-serif;
+    height: 3vw;
+    width: 100vw;
+    box-sizing: border-box;
+}

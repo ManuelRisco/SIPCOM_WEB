@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>El Bambino - Pollos a la Brasa</title>
+    <link rel="icon" type="image/webp" href="/imagenes/logo/Logo.webp" />
+
+    <!-- FUENTE GOOGLE FONTS : Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- ICONS: Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+
+    <!-- ICONS: Line Awesome -->
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+
+    <!-- Animaciones AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Mis Estilos -->
+    <link rel="stylesheet" href="/css/estilos.css" />
+    <!-- Vincular el CSS del carrito -->
+    <link rel="stylesheet" href="/css/carrito-estilo.css" />
+    <link rel="stylesheet" href="/css/carrito-mapa.css" />
+    <link rel="stylesheet" href="/css/carrito-mapa-responsive.css" />
+    <link rel="stylesheet" href="/css/carrusel.css">
+</head>
+
+<body>
+    <div class="hm-wrapper">
+        <!-- =================================
+           HEADER MENU
+        ================================== -->
+        <div class="hm-header">
+            <div class="container">
+                <div class="header-menu">
+                    <div class="hm-logo">
+                        <a href="/home">
+                            <img src="/imagenes/logo/Logo.webp" alt="El Bambino - Pollos a la Brasa" />
+                        </a>
+                    </div>
+
+                    <nav class="hm-menu">
+                        <ul>
+                            <li><a href="#carta" class="footer-link-menu">Carta</a></li>
+                            <li>
+                                <a href="https://wa.me/51929844681" target="_blank">Contacto</a>
+                            </li>
+                            <li><a href="/login">Acceso</a></li>
+                        </ul>
+
+                        <div class="hm-icon-cart">
+                            <a href="#">
+                                <i class="las la-shopping-cart"></i>
+                                <span>0</span>
+                            </a>
+                        </div>
+
+                        <div class="icon-menu">
+                            <button type="button"><i class="fas fa-bars"></i></button>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================
+           HEADER MENU Movil
+        ================================== -->
+        <div class="header-menu-movil">
+            <button class="cerrar-menu"><i class="fas fa-times"></i></button>
+            <ul>
+                <li><a href="#">Carta</a></li>
+                <li><a href="https://wa.me/51929844681" target="_blank">Contacto</a></li>
+                <li><a href="/login">Acesso</a></li>
+                <li>
+                    <button id="btn-historial-pedidos-movil" class="hm-btn btn-historial-pedidos" type="button">
+                        Historial de pedidos
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- =================================
+           CARRUSEL
+        ================================== -->
+
+        <div class="slider-box">
+            <button class="arrow prev">&#10094;</button>
+            <ul>
+                <li><img src="/imagenes/carrusel/imagen_1.webp" alt="Imagen 1"></li>
+                <li><img src="/imagenes/carrusel/imagen_2.webp" alt="Imagen 2"></li>
+                <li><img src="/imagenes/carrusel/imagen_3.webp" alt="Imagen 3"></li>
+                <li><img src="/imagenes/carrusel/imagen_4.webp" alt="Imagen 4"></li>
+            </ul>
+            <button class="arrow next">&#10095;</button>
+
+            <!-- Contenedor de bolitas -->
+            <div class="dots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+            </div>
+        </div>
+
+
+
+        <!-- =================================
+           HOME CATEGROIAS
+        ================================== -->
+        <div class="hm-page-block">
+            <div class="container">
+                <div class="header-title" id="sobre-nosotros">
+                    <h1 data-aos="fade-up" data-aos-duration="3000">Sobre nosotros</h1>
+                </div>
+
+                <div class="sobre-nosotros-descripcion" data-aos="fade-up" data-aos-duration="1200">
+                    <p>
+                        Ven a disfrutar el más delicioso Pollo a la Brasa de todo el Sur
+                        de Lima, preparado con los mejores ingredientes y el auténtico
+                        sabor que nos caracteriza. En El Bambino, combinamos tradición,
+                        calidad y un ambiente familiar para que cada visita sea una
+                        experiencia inolvidable. Nuestro compromiso es ofrecerte platos
+                        frescos, sabrosos y un servicio cálido, porque tu satisfacción es
+                        nuestra mayor recompensa. ¡Te esperamos para compartir juntos el
+                        verdadero sabor peruano!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================
+           HOME PRODUCTOS DESTACADOS
+        ================================== -->
+        <div class="hm-page-block bg-fondo" id="carta">
+            <div class="container">
+                <div class="header-title" data-aos="fade-up">
+                    <h1>Carta</h1>
+                </div>
+                <ul class="hm-tabs" id="tabs-carta" data-aos="fade-up">
+                    <li class="hm-tab-link">Pollo a la Brasa</li>
+                    <li class="hm-tab-link">Adicionales</li>
+                    <li class="hm-tab-link">Promociones</li>
+                    <li class="hm-tab-link">Bebidas</li>
+                </ul>
+
+                <!-- BUSCADOR DE CARTA -->
+                <div class="buscador-carta" data-aos="fade-up" data-aos-delay="100">
+                    <input id="buscadorCarta" type="text" placeholder="Buscar en toda la carta...">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <!-- CONTENIDO DE LOS TABS -->
+
+                <!-- Pollo a la Brasa -->
+                <div class="tabs-content" data-aos="fade-up">
+                    <div class="grid-product">
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img alt="Pollo entero" src="/imagenes/carta/pollo_brasa/pollo_entero_1_papa.webp" />
+                                <span class="stin stin-new">Recomendado</span>
+                            </div>
+                            <div class="p-info">
+                                <h3>Pollo a la Brasa Entero</h3>
+                                <p class="descripcion-producto">
+                                    Jugoso pollo entero a la brasa, acompañado de papas fritas y
+                                    ensalada fresca. Ideal para compartir en familia.
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 55.00</span>
+                                </div>
+                                <a class="hm-btn btn-primary uppercase" href="#">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img alt="Medio Pollo + Un Cuarto"
+                                    src="/imagenes/carta/pollo_brasa/medio_pollo_mas_un_cuarto.webp" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Medio Pollo + Un Cuarto</h3>
+                                <p class="descripcion-producto">
+                                    Tres cuartos de nuestro delicioso pollo a la brasa,
+                                    acompañado de papas fritas y ensalada fresca.
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 45.00</span>
+                                </div>
+                                <a class="hm-btn btn-primary uppercase" href="#">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img alt="Medio Pollo" src="/imagenes/carta/pollo_brasa/medio_pollo.webp" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Medio Pollo a la Brasa</h3>
+                                <p class="descripcion-producto">
+                                    Delicioso medio pollo a la brasa, jugoso por dentro y con
+                                    piel crujiente, servido con guarnición a elección.
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 32.00</span>
+                                </div>
+                                <a class="hm-btn btn-primary uppercase" href="#">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img alt="Medio Pollo + Un Cuarto"
+                                    src="/imagenes/carta/pollo_brasa/pollo_entero_2_papas.webp" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Pollo Entero sin Ensalada</h3>
+                                <p class="descripcion-producto">
+                                    Nuestro pollo a la brasa de siempre, acompañado de doradas
+                                    papas fritas y nuestra salsa especial
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 50.00</span>
+                                </div>
+                                <a class="hm-btn btn-primary uppercase" href="#">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img alt="Cuarto de Pollo" src="/imagenes/carta/pollo_brasa/pollo_parte_pecho.webp" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Cuarto de Pollo a la Brasa</h3>
+                                <p class="descripcion-producto">
+                                    Parte del pollo a la brasa, ideal para un almuerzo ligero,
+                                    acompañado de nuestra salsa especial.
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 18.00</span>
+                                </div>
+                                <a class="hm-btn btn-primary uppercase" href="#">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img alt="Pollo Personal" src="/imagenes/carta/pollo_brasa/pollo_parte_pierna.webp" />
+                                <span class="stin stin-new">Nuevo</span>
+                            </div>
+                            <div class="p-info">
+                                <h3>Pollo Personal</h3>
+                                <p class="descripcion-producto">
+                                    Una porción de pollo a la brasa, perfecta para una
+                                    persona, acompañada de papas fritas.
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 12.00</span>
+                                </div>
+                                <a class="hm-btn btn-primary uppercase" href="#">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adicionales -->
+                <div class="tabs-content" data-aos="fade-up">
+                    <div class="grid-product">
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/adicionales/una_porcion_papas_fritas.webp"
+                                    alt="Una porcion Papas Fritas" />
+                                <span class="stin stin-new">Recomendado</span>
+                            </div>
+
+                            <div class="p-info">
+                                <h3>1 Ración de Papas Fritas</h3>
+                                <p class="descripcion-producto">
+                                    Una porción completa de papas fritas, el acompañamiento
+                                    perfecto para tu pollo a la brasa.
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 18.00</span>
+                                </div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/adicionales/media_racion_papas_fritas.webp"
+                                    alt="Media Ración de Papas Fritas" />
+                            </div>
+
+                            <div class="p-info">
+                                <h3>1/2 Ración de Papas Fritas</h3>
+                                <p class="descripcion-producto">
+                                    Media porción de papas fritas, el acompañamiento perfecto
+                                    para tu pollo a la brasa.
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 10.00</span>
+                                </div>
+                                <a href="" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/adicionales/arroz-chaufa.webp" alt="Arroz Chaufa" />
+                            </div>
+
+                            <div class="p-info">
+                                <h3>Arroz Chaufa</h3>
+                                <p class="descripcion-producto">
+                                    Arroz chaufa con pollo, un clásico de la comida peruana,
+                                    salteado con huevo y cebolla china.
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 12.00</span>
+                                </div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promociones -->
+                <div class="tabs-content" data-aos="fade-up">
+                    <div class="grid-product">
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/promociones/dos_pollos_promo.webp" alt="Dos pollos promo" />
+                                <span class="stin stin-oferta">Promo</span>
+                            </div>
+
+                            <div class="p-info">
+                                <h3>2 Pollos + Gaseosa de 3 Litros</h3>
+                                <p class="descripcion-producto">
+                                    2 Pollos enteros, acompañado de 2 raciones de papas fritas,
+                                    2 raciones de ensalada fresca, salsas + 1 Gaseosa de 3
+                                    Litros.
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 100.00</span>
+                                    <span class="thash">S/ 133.00</span>
+                                </div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/promociones/un_pollo_promo.webp" alt="Dos pollos promo" />
+                                <span class="stin stin-oferta">Promo</span>
+                            </div>
+
+                            <div class="p-info">
+                                <h3>1 Pollo + Gaseosa de 1.5 Litros</h3>
+                                <p class="descripcion-producto">
+                                    1 Pollo entero, acompañado de 1 ración de papas fritas, 1
+                                    ración de ensalada fresca, salsas + 1 Gaseosa de 1.5 Litros.
+                                </p>
+                                <div class="precio">
+                                    <span>S/ 59.00</span>
+                                    <span class="thash">S/ 65.00</span>
+                                </div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bebidas -->
+                <div class="tabs-content" data-aos="fade-up">
+                    <div class="grid-product">
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/bebidas/coca_cola_600ml.webp" alt="Coca Cola 600ml" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Coca Cola 600ml</h3>
+                                <p class="descripcion-producto">Gaseosa Coca cola de 600ml</p>
+                                <div class="precio"><span>S/ 4.00</span></div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/bebidas/coca_cola_1.5L.webp" alt="Coca Cola 1.5L" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Coca Cola 1.5L</h3>
+                                <p class="descripcion-producto">
+                                    Gaseosa Coca cola de 1.5 litros
+                                </p>
+                                <div class="precio"><span>S/ 10.00</span></div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/bebidas/coca_cola_3L.webp" alt="Coca Cola 3L" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Coca Cola 3L</h3>
+                                <p class="descripcion-producto">
+                                    Gaseosa Coca cola de 3 litros
+                                </p>
+                                <div class="precio"><span>S/ 16.00</span></div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/bebidas/inca_kola_600ml.webp" alt="Inca Kola 600ml" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Inca Kola 600ml</h3>
+                                <p class="descripcion-producto">Gaseosa Inca Kola de 600ml</p>
+                                <div class="precio"><span>S/ 4.00</span></div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/bebidas/inca_kola_1.5L.webp" alt="Inca Kola 1.5L" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Inca Kola 1.5L</h3>
+                                <p class="descripcion-producto">
+                                    Gaseosa Inca Kola de 1.5 litros
+                                </p>
+                                <div class="precio"><span>S/ 10.00</span></div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/bebidas/inca_kola_3L.webp" alt="Inca Kola 3L" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Inca Kola 3L</h3>
+                                <p class="descripcion-producto">
+                                    Gaseosa Inca Kola de 3 litros
+                                </p>
+                                <div class="precio"><span>S/ 16.00</span></div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="p-portada">
+                                <img src="/imagenes/carta/bebidas/agua_sin_gas_san_luis_625ml.webp"
+                                    alt="Agua sin gas San Luis 625ml" />
+                            </div>
+                            <div class="p-info">
+                                <h3>Agua Mineral</h3>
+                                <p class="descripcion-producto">Agua mineral sin gas 625ml</p>
+                                <div class="precio"><span>S/ 3.00</span></div>
+                                <a href="#" class="hm-btn btn-primary uppercase">AGREGAR AL CARRITO</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================
+           FOOTER
+        ================================== -->
+        <footer>
+            <div class="container">
+                <div class="foo-row">
+                    <div class="foo-col">
+                        <h2>
+                            ¡No te pierdas nuestras promociones!<br />Suscríbete y sé el
+                            primero en enterarte.
+                        </h2>
+                        <form id="newsletter-form" action="" method="GET">
+                            <div class="f-input">
+                                <input type="text" placeholder="Ingrese su correo para recibir nuestras promociones"
+                                    required />
+                                <button type="submit" class="hm-btn-round btn-primary">
+                                    <i class="far fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="foo-col">
+                        <ul>
+                            <li>
+                                <a href="#carta" class="footer-link-menu">
+                                    <i class="fas fa-utensils"></i>
+                                    <span style="color:inherit;">Carta</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#carta" class="footer-link-promociones" data-tab="Promociones">
+                                    <i class="fas fa-tags"></i>
+                                    <span style="color:inherit;">Promociones</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#sobre-nosotros">
+                                    <i class="fas fa-users"></i>
+                                    <span style="color:inherit;">Nosotros</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://wa.me/51929844681" target="_blank">
+                                    <i class="fab fa-whatsapp-square"></i>
+                                    <span style="color:inherit;">Whatsapp</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/maps/search/Av.+Santa+Anita+N%C2%B0503,+Urbanizaci%C3%B3n+Villa+Marina+-+Chorrillos+,+Chorrillos,+Peru/@-12.1894204,-77.0151671,18z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI1MDYwNC4wIKXMDSoASAFQAw%3D%3D"
+                                    target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span style="color:inherit;">Ubicación</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/PollosalabrazaElBambino/?locale=es_LA"
+                                    target="_blank">
+                                    <i class="fab fa-facebook-square"></i>
+                                    <span style="color:inherit;">Facebook</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div class="foo-copy">
+            <div class="container">
+                <p>
+                    El Bambino Polleria © 2025 | Pollos a la Brasa - Todos los derechos
+                    reservados
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animaciones : AOS-->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <!-- Mi Script -->
+    <script src="/js/app.js"></script>
+    <script src="/js/busqueda.js"></script>
+    <script src="/js/modal-newsletter.js"></script>
+    <script src="/js/menu-scroll.js"></script>
+    <script src="/js/carrusel.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200,
+        });
+    </script>
+
+    <!-- MODAL AVISO NEWSLETTER -->
+    <div id="modal-newsletter" class="modal-carrito-content">
+        <button id="cerrar-modal-newsletter">&times;</button>
+        <h2>¡Gracias por suscribirte!</h2>
+        <p>Te mantendremos informado de nuestras promociones y novedades.</p>
+    </div>
+
+    <!-- Script para cambiar el título de la página -->
+    <script>
+        // Detectar si el usuario cambia de pestaña o sale de la página
+        var originalTitle = document.title;
+        var leaveTitle = "¡No te vayas! 😢";
+
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                document.title = leaveTitle;
+            } else {
+                document.title = originalTitle;
+            }
+        });
+    </script>
+</body>
+
+</html>

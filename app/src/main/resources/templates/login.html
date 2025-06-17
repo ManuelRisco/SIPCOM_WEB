@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - El Bambino Pollería</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+    <link rel="stylesheet" href="/css/login-estilo.css">
+    <link rel="icon" type="image/webp" href="/imagenes/logo/Logo.webp" />
+</head>
+<body>
+    <div class="login-container" data-aos="fade-up">
+        <div class="logo-login">
+    <a href="/home">
+        <img src="/imagenes/logo/Logo.webp" alt="El Bambino - Pollos a la Brasa" class="admin-logo">
+    </a>
+        </div>
+        <h2>Login de Acceso</h2>
+        <form id="loginForm" method="post" action="/login" autocomplete="off">
+            <div class="error" th:if="${param.error}" th:text="'Usuario o contraseña incorrectos o usuario inactivo'"></div>
+            <label for="username">Usuario</label>
+            <input type="text" id="username" name="username" required autofocus>
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" required>
+            <div style="display: flex; gap: 20px;">
+                <button type="submit">Ingresar</button>
+                <button type="button" onclick="window.location.href='/home'">Volver</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1200 });
+    </script>
+
+         <!-- =================================
+           FOOTER
+        ================================== -->
+        <div class="foo-copy">
+            <div class="container">
+                <p>El Bambino Polleria © 2025 | Pollos a la Brasa - Todos los derechos reservados</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

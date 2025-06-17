@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title th:text="${proveedor.id_Proveedor == null ? 'Nuevo Proveedor' : 'Editar Proveedor'}"></title>
+  <link rel="icon" type="image/webp" href="/imagenes/logo/Logo.webp" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/admin-usuarios.css" />
+  <style>
+    .form-wrapper { max-width: 600px; margin: 0 auto; }
+    @media (max-width: 576px) {
+      .form-wrapper { padding: 0 1rem; }
+      .d-flex.justify-content-between { flex-direction: column; gap: 0.75rem; }
+      .d-flex.justify-content-between .btn { width: 100% !important; }
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <main class="container py-5">
+    <div class="card shadow form-wrapper">
+      <div class="card-header bg-primary text-white text-center">
+        <h2 class="mb-0" th:text="${proveedor.id_Proveedor == null ? 'Nuevo Proveedor' : 'Editar Proveedor'}"></h2>
+      </div>
+      <div class="card-body">
+        <form th:action="@{/admin-proveedores/guardar}" th:object="${proveedor}" method="post">
+          <input type="hidden" th:field="*{id_Proveedor}" />
+
+          <div class="mb-3">
+            <label class="form-label">Razón Social</label>
+            <input type="text" th:field="*{razonSocial}" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">RUC</label>
+            <input type="text" th:field="*{ruc}" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="text" th:field="*{telefono}" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Correo</label>
+            <input type="email" th:field="*{correo}" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Dirección</label>
+            <input type="text" th:field="*{direccion}" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Estado</label>
+            <select th:field="*{estado}" class="form-select">
+              <option th:value="true" th:text="'Activo'"></option>
+              <option th:value="false" th:text="'Inactivo'"></option>
+            </select>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success w-50 me-2">Guardar</button>
+            <a href="/admin-proveedores" class="btn btn-secondary w-50 ms-2">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
