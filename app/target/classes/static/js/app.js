@@ -334,6 +334,21 @@ function mostrarFormularioPago() {
     `;
     totalDiv.innerHTML = `<strong>Total: S/ ${total.toFixed(2)}</strong>`;
 
+    // --- AUTORELLENO DE DATOS PERSONALES ---
+    setTimeout(() => {
+        const datosGuardados = JSON.parse(localStorage.getItem('datosPersonalesCarrito') || '{}');
+        const form = document.querySelector('.form-pago-carrito');
+        if (form && datosGuardados) {
+            if (datosGuardados.tipoDocumento) form.tipoDocumento.value = datosGuardados.tipoDocumento;
+            if (datosGuardados.numeroDocumento) form.numeroDocumento.value = datosGuardados.numeroDocumento;
+            if (datosGuardados.nombres) form.nombres.value = datosGuardados.nombres;
+            if (datosGuardados.apellidos) form.apellidos.value = datosGuardados.apellidos;
+            if (datosGuardados.correo) form.correo.value = datosGuardados.correo;
+            if (datosGuardados.telefono) form.telefono.value = datosGuardados.telefono;
+            if (datosGuardados.direccion) form.direccion.value = datosGuardados.direccion;
+        }
+    }, 0);
+
     // Cargar métodos de pago desde el backend público y llenar el select
     fetch(`${API_BASE_URL}/api/publico/metodopago`)
         .then(res => res.json())
@@ -356,6 +371,16 @@ function mostrarFormularioPago() {
     form.onsubmit = function(e) {
         e.preventDefault();
         const datos = Object.fromEntries(new FormData(form));
+        // --- GUARDAR DATOS PERSONALES EN LOCALSTORAGE ---
+        localStorage.setItem('datosPersonalesCarrito', JSON.stringify({
+            tipoDocumento: datos.tipoDocumento,
+            numeroDocumento: datos.numeroDocumento,
+            nombres: datos.nombres,
+            apellidos: datos.apellidos || "",
+            correo: datos.correo || "",
+            telefono: datos.telefono || "",
+            direccion: datos.direccion
+        }));
         const detalles = carrito.map(item => ({
             productoCarta: item.nombre,
             cantidad: item.cantidad,
@@ -880,6 +905,21 @@ function mostrarFormularioPago() {
     `;
     totalDiv.innerHTML = `<strong>Total: S/ ${total.toFixed(2)}</strong>`;
 
+    // --- AUTORELLENO DE DATOS PERSONALES ---
+    setTimeout(() => {
+        const datosGuardados = JSON.parse(localStorage.getItem('datosPersonalesCarrito') || '{}');
+        const form = document.querySelector('.form-pago-carrito');
+        if (form && datosGuardados) {
+            if (datosGuardados.tipoDocumento) form.tipoDocumento.value = datosGuardados.tipoDocumento;
+            if (datosGuardados.numeroDocumento) form.numeroDocumento.value = datosGuardados.numeroDocumento;
+            if (datosGuardados.nombres) form.nombres.value = datosGuardados.nombres;
+            if (datosGuardados.apellidos) form.apellidos.value = datosGuardados.apellidos;
+            if (datosGuardados.correo) form.correo.value = datosGuardados.correo;
+            if (datosGuardados.telefono) form.telefono.value = datosGuardados.telefono;
+            if (datosGuardados.direccion) form.direccion.value = datosGuardados.direccion;
+        }
+    }, 0);
+
     // Cargar métodos de pago desde el backend público y llenar el select
     fetch(`${API_BASE_URL}/api/publico/metodopago`)
         .then(res => res.json())
@@ -902,6 +942,16 @@ function mostrarFormularioPago() {
     form.onsubmit = function(e) {
         e.preventDefault();
         const datos = Object.fromEntries(new FormData(form));
+        // --- GUARDAR DATOS PERSONALES EN LOCALSTORAGE ---
+        localStorage.setItem('datosPersonalesCarrito', JSON.stringify({
+            tipoDocumento: datos.tipoDocumento,
+            numeroDocumento: datos.numeroDocumento,
+            nombres: datos.nombres,
+            apellidos: datos.apellidos || "",
+            correo: datos.correo || "",
+            telefono: datos.telefono || "",
+            direccion: datos.direccion
+        }));
         const detalles = carrito.map(item => ({
             productoCarta: item.nombre,
             cantidad: item.cantidad,

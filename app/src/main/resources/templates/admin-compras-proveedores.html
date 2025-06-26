@@ -272,12 +272,28 @@
                         ).join('<hr style="margin:2px 0;">');
                         // Calcular total a pagar
                         const total = (compra.productos || []).reduce((sum, p) => sum + (p.cantidad * p.precioUnitario), 0);
+                        // --- Conversión de fecha a hora local ---
+                        let fechaLocal = '';
+                        if (compra.fechaCompra) {
+                            try {
+                                const d = new Date(compra.fechaCompra);
+                                fechaLocal = d.toLocaleString('es-PE', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                });
+                            } catch (e) {
+                                fechaLocal = compra.fechaCompra;
+                            }
+                        }
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
                             <td>${compra.idCompra}</td>
                             <td>${compra.proveedorNombre}</td>
                             <td>${compra.usuarioNombre}</td>
-                            <td>${compra.fechaCompra}</td>
+                            <td>${fechaLocal}</td>
                             <td>${compra.estadoCompra}</td>
                             <td>${compra.observaciones || ''}</td>
                             <td>${productos}</td>

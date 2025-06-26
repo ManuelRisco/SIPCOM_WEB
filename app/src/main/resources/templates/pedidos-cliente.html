@@ -96,10 +96,26 @@
                     <tbody>
             `;
             carritos.forEach(c => {
+                // --- Conversión de fecha a hora local ---
+                let fechaLocal = '';
+                if (c.fecha_Creacion) {
+                    try {
+                        const d = new Date(c.fecha_Creacion);
+                        fechaLocal = d.toLocaleString('es-PE', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    } catch (e) {
+                        fechaLocal = c.fecha_Creacion.substring(0, 19).replace('T', ' ');
+                    }
+                }
                 html += `
                     <tr>
                         <td>${c.id_Carrito}</td>
-                        <td>${c.fecha_Creacion ? c.fecha_Creacion.substring(0, 19).replace('T', ' ') : ''}</td>
+                        <td>${fechaLocal}</td>
                         <td class="estado-pedido">
                             <select data-id="${c.id_Carrito}" class="form-select form-select-sm select-estado">
                                 <option value="pendiente" ${c.estado === 'pendiente' ? 'selected' : ''}>pendiente</option>
@@ -187,7 +203,5 @@
                 });
         });
     </script>
-</body>
-</html>
 </body>
 </html>
